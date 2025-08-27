@@ -13,6 +13,9 @@ try:
     from anndata.io import CSRDataset, CSCDataset
     SparseDataset = Union[CSRDataset, CSCDataset]
 
+except:
+    pass
+
 Array = Union[np.ndarray, scipy.sparse.spmatrix]
 BackedArray = Union[h5py.Dataset, SparseDataset]
 AnyArray = Union[Array, BackedArray]
