@@ -82,6 +82,7 @@ def lsi(
     X_lsi -= X_lsi.mean(axis=1, keepdims=True)
     X_lsi /= X_lsi.std(axis=1, ddof=1, keepdims=True)
     adata.obsm["X_lsi"] = X_lsi
+    adata.varm["lsi_loadings"] = Vt.T
 
 
 @logged
