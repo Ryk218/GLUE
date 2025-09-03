@@ -78,11 +78,17 @@ def lsi(
     X = num.tfidf(adata_use.X)
     X_norm = normalize(X, norm="l1")
     X_norm = np.log1p(X_norm * 1e4)
-    X_lsi = sklearn.utils.extmath.randomized_svd(X_norm, n_components, **kwargs)[0]
-    X_lsi -= X_lsi.mean(axis=1, keepdims=True)
-    X_lsi /= X_lsi.std(axis=1, ddof=1, keepdims=True)
-    adata.obsm["X_lsi"] = X_lsi
-    adata.varm["lsi_loadings"] = Vt.T
+    
+    U, S, Vt = sklearn.utils.extmath.randomized_svd(X_norm, n_components, **kwargs)
+
+    U -= U.mean(axis=1, keepdims=True)
+    U /= U.std(axis=1, ddof=1, keepdims=True)
+    adata.obsm["X_lsi"] = U
+    
+    components = Vt.T
+    components -= components.mean(axis=1, keepdims=True)
+    components /= components.std(axis=1, ddof =1, keepdims=True)
+    adata.varm["lsi_components"] = components
 
 
 @logged
