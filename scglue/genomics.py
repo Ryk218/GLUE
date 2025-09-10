@@ -386,7 +386,7 @@ class Gtf(ConstrainedDataFrame):  # gffutils is too slow
             3, "name", np.repeat(".", len(bed_df)) if name is None else self[name]
         )
         bed_df["start"] -= 1  # Convert to zero-based
-        bed_df.columns = ("chrom", "chromStart", "chromEnd", "name", "score", "strand")
+        bed_df.columns = ("Chromosome", "Start", "End", "Name", "Score", "Strand")
         return Bed(bed_df)
 
 
